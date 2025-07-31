@@ -5,7 +5,7 @@ export default function About() {
     {
       name: "Sarah Johnson",
       role: "CEO & Founder",
-      image: "https://images.unsplash.com/photo-1494790108755-2616b612b77c?w=300&h=300&fit=crop&crop=face",
+      image: "https://tse1.mm.bing.net/th/id/OIP.CJ_8hB6ZtMjf_zJ0agIz2gHaHa?r=0&rs=1&pid=ImgDetMain&o=7&rm=3",
       description: "15+ years in e-commerce and retail innovation"
     },
     {
