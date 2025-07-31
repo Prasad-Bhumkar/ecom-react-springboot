@@ -1,0 +1,80 @@
+    public ProductDTO updateProduct(Long id, ProductDTO productDTO) {
+        Product product = productRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Product not found with id: " + id));
+        product.setName(productDTO.getName());
+        product.setDescription(productDTO.getDescription());
+        product.setPrice(productDTO.getPrice());
+        product.setImage(productDTO.getImage());
+        product.setRating(productDTO.getRating());
+        product.setReviews(productDTO.getReviews());
+        product.setBrand(productDTO.getBrand());
+        product.setStock(productDTO.getStock());
+        // Optionally update category if needed
+        // Save and return updated DTO
+        productRepository.save(product);
+        return convertToDto(product);
+    }
+package com.example.ecom.service;
+
+import com.example.ecom.model.Product;
+import com.example.ecom.repository.ProductRepository;
+import com.example.ecom.dto.ProductDTO;
+import com.example.ecom.exception.ResourceNotFoundException;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.stream.Collectors;
+
+@Service
+public class ProductService {
+
+    @Autowired
+    private ProductRepository productRepository;
+
+    public Page<ProductDTO> getAllProducts(Pageable pageable) {
+        return productRepository.findAll(pageable).map(this::convertToDto);
+    }
+
+    public ProductDTO getProductById(Long id) {
+        Product product = productRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Product not found with id: " + id));
+        return convertToDto(product);
+    }
+
+    public ProductDTO updateProduct(Long id, ProductDTO productDTO) {
+        Product product = productRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Product not found with id: " + id));
+        product.setName(productDTO.getName());
+        product.setDescription(productDTO.getDescription());
+        product.setPrice(productDTO.getPrice());
+        product.setImage(productDTO.getImage());
+        product.setRating(productDTO.getRating());
+        product.setReviews(productDTO.getReviews());
+        product.setBrand(productDTO.getBrand());
+        product.setStock(productDTO.getStock());
+        // Optionally update category if needed
+        // Save and return updated DTO
+        productRepository.save(product);
+        return convertToDto(product);
+    }
+
+    private ProductDTO convertToDto(Product product) {
+        ProductDTO productDTO = new ProductDTO();
+        productDTO.setId(product.getId());
+        productDTO.setName(product.getName());
+        productDTO.setDescription(product.getDescription());
+        productDTO.setPrice(product.getPrice());
+        productDTO.setImage(product.getImage());
+        productDTO.setRating(product.getRating());
+        productDTO.setReviews(product.getReviews());
+        productDTO.setBrand(product.getBrand());
+        productDTO.setStock(product.getStock());
+        if (product.getCategory() != null) {
+            productDTO.setCategoryName(product.getCategory().getName());
+        }
+        return productDTO;
+    }
+}
