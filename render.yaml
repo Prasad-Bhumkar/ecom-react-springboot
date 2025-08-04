@@ -10,6 +10,7 @@ services:
         fromDatabase:
           name: postgres
           property: connectionString
+    healthCheckPath: /actuator/health
 
 databases:
   - name: postgres
