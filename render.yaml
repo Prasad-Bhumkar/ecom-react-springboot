@@ -12,7 +12,4 @@ services:
           property: connectionString
     healthCheckPath: /actuator/health
 
-databases:
-  - name: postgres
-    databaseName: ecom
-    user: prasad
+
