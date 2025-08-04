@@ -45,9 +45,11 @@ export default function Products() {
     setSearchParams(params);
   }, [selectedCategory, searchQuery, minPrice, maxPrice, sortBy, sortOrder, currentPage, setSearchParams]);
 
+  const apiUrl = import.meta.env.VITE_API_URL;
+
   const fetchCategories = async () => {
     try {
-      const response = await fetch('/api/categories');
+      const response = await fetch(`${apiUrl}/api/categories`);
       const data = await response.json();
       setCategories(data); // Backend now returns List<Category> directly
     } catch (err) {
@@ -71,7 +73,7 @@ export default function Products() {
       if (minPrice) params.set('minPrice', minPrice);
       if (maxPrice) params.set('maxPrice', maxPrice);
 
-      const response = await fetch(`/api/products?${params}`);
+      const response = await fetch(`${apiUrl}/api/products?${params}`);
       const pageData = await response.json(); // Backend now returns Page<ProductDTO>
       
       setProducts(pageData.content);

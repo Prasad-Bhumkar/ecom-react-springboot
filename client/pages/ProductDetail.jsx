@@ -11,10 +11,12 @@ export default function ProductDetail() {
   const [relatedLoading, setRelatedLoading] = useState(true);
   const [relatedProductsError, setRelatedProductsError] = useState(null);
 
+  const apiUrl = import.meta.env.VITE_API_URL;
+
   useEffect(() => {
     const fetchProduct = async () => {
       try {
-        const response = await fetch(`/api/products/${id}`);
+        const response = await fetch(`${apiUrl}/api/products/${id}`);
         const data = await response.json();
         setProduct(data);
       } catch (err) {
@@ -29,7 +31,7 @@ export default function ProductDetail() {
 
     const fetchRelatedProducts = async () => {
       try {
-        const response = await fetch(`/api/products/${id}/related`);
+        const response = await fetch(`${apiUrl}/api/products/${id}/related`);
         if (!response.ok) {
           setRelatedProducts([]);
           return;
@@ -54,7 +56,7 @@ export default function ProductDetail() {
   const addToCart = async () => {
     try {
       const cartId = getCartId();
-      const response = await fetch(`/api/cart/${cartId}/items`, {
+      const response = await fetch(`${apiUrl}/api/cart/${cartId}/items`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
